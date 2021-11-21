@@ -1,30 +1,5 @@
 --- skk.c.orig	2017-08-14 09:07:27.000000000 +0900
 +++ skk.c	2021-03-14 17:55:00.417717316 +0900
-@@ -1272,17 +1272,17 @@
- }
- 
- static char *wide_num_list[] =
--  {"£°", "£±", "£²", "£³", "£´", "£µ", "£¶", "£·", "£¸", "£¹"};
-+  {"ï¼", "ï¼‘", "ï¼’", "ï¼“", "ï¼”", "ï¼•", "ï¼–", "ï¼—", "ï¼˜", "ï¼™"};
- static char *kanji_num_list[] =
--  {"¡»", "°ì", "Æó", "»°", "»Í", "¸Ş", "Ï»", "¼·", "È¬", "¶å"};
-+  {"ã€‡", "ä¸€", "äºŒ", "ä¸‰", "å››", "äº”", "å…­", "ä¸ƒ", "å…«", "ä¹"};
- static char *kanji_num_position_list[] =
--  {NULL, "½½", "É´", "Àé", "Ëü", NULL, NULL, NULL, "²¯", NULL,
--   NULL, NULL, "Ãû", NULL, NULL, NULL, "µş", NULL, NULL, NULL};
-+  {NULL, "å", "ç™¾", "åƒ", "ä¸‡", NULL, NULL, NULL, "å„„", NULL,
-+   NULL, NULL, "å…†", NULL, NULL, NULL, "äº¬", NULL, NULL, NULL};
- static char *kanji_check_num_list[] =
--  {"¡»", "°í", "Ğ±", "»²", "»Í", "¸à", "Ï»", "¼·", "È¬", "¶å"};
-+  {"ã€‡", "å£±", "å¼", "å‚", "å››", "ä¼", "å…­", "ä¸ƒ", "å…«", "ä¹"};
- static char *kanji_check_num_position_list[] =
--  {NULL, "½¦", "É´", "ïô", "èß", NULL, NULL, NULL, "²¯", NULL,
--   NULL, NULL, "Ãû", NULL, NULL, NULL, "µş", NULL, NULL, NULL};
-+  {NULL, "æ‹¾", "ç™¾", "é˜¡", "è¬", NULL, NULL, NULL, "å„„", NULL,
-+   NULL, NULL, "å…†", NULL, NULL, NULL, "äº¬", NULL, NULL, NULL};
- 
- static char *
- numeric_wide_or_kanji_conv(const char *numstr, int method)
 @@ -1291,15 +1291,15 @@
    int i, len;
  
@@ -45,7 +20,7 @@
  
    return mbstr;
  }
-@@ -1316,19 +1316,19 @@
+@@ -1316,14 +1316,14 @@
    if (len > 20) /* too big number */
      return uim_strdup(numstr);
  
@@ -63,12 +38,6 @@
        /* check zero at the head */
        if (j == 0) {
  	head_is_zero = 1;
-       } else {
--	/* add Ëü, ²¯, Ãû, µş for zero */
-+	/* add ä¸‡, å„„, å…†, äº¬ for zero */
- 	if ((position >= 4) && ((position % 4) == 0) && !head_is_zero) {
- 	  int use_position = 0;
- 	  if (j >= 3) {
 @@ -1344,10 +1344,10 @@
  	  }
  	  if (use_position) {
@@ -84,18 +53,7 @@
  	  }
  	}
        }
-@@ -1358,8 +1358,8 @@
-       /* replace numstr[j] with kanji number */
-       if (numstr[j] == '1') {
- 	/*
--	 * use "°ì" only for the one at the place of °ì, Ëü, ²¯, Ãû,
--	 * µş or °ìÀéËü
-+	 * use "ä¸€" only for the one at the place of ä¸€, ä¸‡, å„„, å…†,
-+	 * äº¬ or ä¸€åƒä¸‡
- 	 */
- 	if (((position % 4) == 0) ||
- 	    ((position >= 7) &&
-@@ -1367,33 +1367,33 @@
+@@ -1367,11 +1367,11 @@
  	     (numstr[j + 1] == '0') &&
  	     (numstr[j + 2] == '0') &&
  	     (numstr[j + 3] == '0'))) {
@@ -110,9 +68,8 @@
 -	strcpy(&mbstr[i * 2], kanji_num_list[numstr[j] - '0']);
 +	strcpy(&mbstr[i * 3], kanji_num_list[numstr[j] - '0']);
        }
- 
--      /* add ½½, É´, Àé for number whose place is exceeded Ëü */
-+      /* add å, ç™¾, åƒ for number whose place is exceeded ä¸‡ */
+
+       /* add å, ç™¾, åƒ for number whose place is exceeded ä¸‡ */
        if (position > 4) {
  	if ((position % 4) != 0) {
  	  i++;
@@ -150,7 +107,7 @@
    }
  
    mbstr[mblen] = '\0';
-@@ -1420,19 +1420,19 @@
+@@ -1420,14 +1420,14 @@
    if (len > 20) /* too big number */
      return uim_strdup(numstr);
  
@@ -168,12 +125,6 @@
        /* check zero at the head */
        if (j == 0) {
  	head_is_zero = 1;
-       } else {
--	/* add èß, ²¯, Ãû, µş for zero */
-+	/* add è¬, å„„, å…†, äº¬ for zero */
- 	if ((position >= 4) && ((position % 4) == 0) && !head_is_zero) {
- 	  int use_position = 0;
- 	  if (j >= 3) {
 @@ -1448,10 +1448,10 @@
  	  }
  	  if (use_position) {
@@ -196,8 +147,7 @@
 -      strcpy(&mbstr[i * 2], kanji_check_num_list[numstr[j] - '0']);
 +      strcpy(&mbstr[i * 3], kanji_check_num_list[numstr[j] - '0']);
  
--      /* add ½¦, É´, ïô for number whose place is exceeded èß */
-+      /* add æ‹¾, ç™¾, é˜¡ for number whose place is exceeded è¬ */
+       /* add æ‹¾, ç™¾, é˜¡ for number whose place is exceeded è¬ */
        if (position > 4) {
  	if ((position % 4) != 0) {
  	  i++;
@@ -249,26 +199,3 @@
  
    return mbstr;
  }
-@@ -1525,17 +1525,17 @@
-   case 0:
-     ret = uim_strdup(numstr);
-     break;
--  case 1: /* Á´³Ñ¿ô»ú */
--  case 2: /* ´Á¿ô»ú °Ì¼è¤êÌµ¤· */
-+  case 1: /* å…¨è§’æ•°å­— */
-+  case 2: /* æ¼¢æ•°å­— ä½å–ã‚Šç„¡ã— */
-     ret = numeric_wide_or_kanji_conv(numstr, method);
-     break;
--  case 3: /* ´Á¿ô»ú °Ì¼è¤êÍ­¤ê */
-+  case 3: /* æ¼¢æ•°å­— ä½å–ã‚Šæœ‰ã‚Š */
-     ret = numeric_kanji_with_position_conv(numstr);
-     break;
--  case 5: /* ¾®ÀÚ¼êÉ½µ­ */
-+  case 5: /* å°åˆ‡æ‰‹è¡¨è¨˜ */
-     ret = numeric_kanji_for_check_conv(numstr);
-     break;
--  case 9: /* ¾­´ıÉ½µ­ */
-+  case 9: /* å°†æ£‹è¡¨è¨˜ */
-     ret = numeric_shogi_conv(numstr);
-     break;
-   default:

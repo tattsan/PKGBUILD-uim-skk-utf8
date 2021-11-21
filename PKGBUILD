@@ -42,6 +42,8 @@ prepare() {
 	mv skk-custom.scm skk-custom.scm.orig && sudo mv skk-custom-utf8.scm skk-custom.scm
 	rm -f japanese-custom-utf8.scm.orig japanese-utf8.scm.orig skk-utf8.scm.orig
 	cd "${srcdir}/${_pkgname}-${pkgver}"/uim
+        iconv -f EUC-JP -t UTF-8 < skk.c | sudo tee skk-utf8.c > /dev/null
+	mv skk.c skk.c.orig && sudo mv skk-utf8.c skk.c
         cat "${srcdir}"/uim-skk-1.8.8-utf8-2.patch |  patch -p0 -b --follow-symlink
         cat "${srcdir}"/uim-skk-1.8.8-utf8-3.patch |  patch -p0 -b --follow-symlink
 }
