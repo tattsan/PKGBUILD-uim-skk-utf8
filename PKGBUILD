@@ -35,15 +35,15 @@ prepare() {
 	for f in japanese-act.scm japanese-azik.scm japanese-custom.scm japanese-kana.scm japanese-kzik.scm japanese.scm skk.scm skk-custom.scm
 	  do
             new="$(echo $f | sed 's/\.scm$/-utf8.scm/')"
-            iconv -f EUC-JP -t UTF-8 < "$f" | sudo tee "$new" > /dev/null
+            iconv -f EUC-JP -t UTF-8 < "$f" > "$new"
         done
         cat "${srcdir}"/uim-skk-1.8.8-utf8-1.patch |  patch -p0 -b --follow-symlink
-	mv skk.scm skk.scm.orig && sudo mv skk-utf8.scm skk.scm
-	mv skk-custom.scm skk-custom.scm.orig && sudo mv skk-custom-utf8.scm skk-custom.scm
+	mv skk.scm skk.scm.orig && mv skk-utf8.scm skk.scm
+	mv skk-custom.scm skk-custom.scm.orig && mv skk-custom-utf8.scm skk-custom.scm
 	rm -f japanese-custom-utf8.scm.orig japanese-utf8.scm.orig skk-utf8.scm.orig
 	cd "${srcdir}/${_pkgname}-${pkgver}"/uim
-        iconv -f EUC-JP -t UTF-8 < skk.c | sudo tee skk-utf8.c > /dev/null
-	mv skk.c skk.c.orig && sudo mv skk-utf8.c skk.c
+        iconv -f EUC-JP -t UTF-8 < skk.c > skk-utf8.c
+	mv skk.c skk.c.orig && mv skk-utf8.c skk.c
         cat "${srcdir}"/uim-skk-1.8.8-utf8-2.patch |  patch -p0 -b --follow-symlink
         cat "${srcdir}"/uim-skk-1.8.8-utf8-3.patch |  patch -p0 -b --follow-symlink
 }
