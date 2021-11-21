@@ -1,0 +1,108 @@
+--- japanese-custom-utf8.scm.orig
++++ japanese-custom-utf8.scm
+@@ -387,6 +387,17 @@
+     ((("z" "/"). ())("・" "・" "･"))
+     ))
+ 
++(define string-to-list
++  (lambda (s)
++    (with-char-codec "UTF-8"
++      (lambda ()
++	(map! (lambda (c)
++		(let ((str (list->string (list c))))
++		  (with-char-codec "ISO-8859-1"
++		    (lambda ()
++		      (%%string-reconstruct! str)))))
++	      (reverse! (string->list s)))))))
++
+ (define ja-rk-rule-basic-uim ja-rk-rule-basic)
+ 
+ (define ja-rk-rule-rule->table (lambda (rule)
+
+--- japanese-utf8.scm.orig
++++ japanese-utf8.scm
+@@ -31,7 +31,7 @@
+ ;; Japanese EUC
+ 
+ (require-extension (srfi 1 2))
+-(require-custom "japanese-custom.scm")
++(require-custom "japanese-custom-utf8.scm")
+ (require "util.scm")
+ 
+ (define ja-rk-rule-additional
+@@ -613,8 +613,9 @@
+       (if (= ej0 #x8f) ; SS3?
+         (<= #xa1 ej2 #xfe) ; IN_GR94()
+         (<= #xa0 ej2 #xff)) ; IN_GR96()
+-      (ja-euc-jp-code->euc-jp-string
+-        (+ (* ej0 #x10000) (* ej1 #x100) ej2)))))
++      (iconv-code-conv (iconv-open "UTF-8" "EUC-JP")
++		       (ja-euc-jp-code->euc-jp-string
++			(+ (* ej0 #x10000) (* ej1 #x100) ej2))))))
+ 
+ ;;; Convert reverse string list of JIS code to one EUC-JP kanji string
+ ;;; ("d" "2" "0" "5") -> "亅"
+@@ -655,9 +656,8 @@
+      (valid? ; sigscheme/src/sigschemeinternal.h:ICHAR_VALID_UNICODEP()
+       (or
+         (<= 0 ucs #xd7ff)
+-        (<= #xe000 ucs #x10ffff)))
+-     (utf8-str (ucs->utf8-string ucs)))
+-    (iconv-convert "EUC-JP" "UTF-8" utf8-str)))
++        (<= #xe000 ucs #x10ffff))))
++     (ucs->utf8-string ucs)))
+ 
+ ;;; Convert reverse string list to one EUC-JP kanji string
+ (define (ja-kanji-code-input str-list)
+--- skk-utf8.scm.orig
++++ skk-utf8.scm
+@@ -30,7 +30,7 @@
+ 
+ ;; SKK is a Japanese input method
+ ;;
+-;; EUC-JP
++;; UTF-8
+ ;;
+ ;; SKKの入力は下記の状態で構成される
+ ;; Following is list of SKK input state
+@@ -44,7 +44,7 @@
+ ;;  漢字コード入力 kcode
+ ;;
+ ;;
+-(require "japanese.scm")
++(require "japanese-utf8.scm")
+ (require-custom "generic-key-custom.scm")
+ (require-custom "skk-custom.scm")
+ (require-custom "skk-key-custom.scm")
+@@ -376,19 +376,19 @@
+                   (set! skk-set-henkan-point-key '())
+ 		  skk-ja-rk-rule)
+ 		 ((= input-rule skk-input-rule-azik)
+-		  (require "japanese-azik.scm")
++		  (require "japanese-azik-utf8.scm")
+                   (set! skk-okuri-char-alist ja-azik-skk-okuri-char-alist)
+                   (set! skk-downcase-alist ja-azik-skk-downcase-alist) 
+                   (set! skk-set-henkan-point-key ja-azik-skk-set-henkan-point-key)
+ 		  ja-azik-rule)
+ 		 ((= input-rule skk-input-rule-act)
+-		  (require "japanese-act.scm")
++		  (require "japanese-act-utf8.scm")
+                   (set! skk-okuri-char-alist ja-act-skk-okuri-char-alist)
+                   (set! skk-downcase-alist ja-act-skk-downcase-alist)
+                   (set! skk-set-henkan-point-key ja-act-skk-set-henkan-point-key)
+ 		  ja-act-rule)
+ 		 ((= input-rule skk-input-rule-kzik)
+-		  (require "japanese-kzik.scm")
++		  (require "japanese-kzik-utf8.scm")
+                   (set! skk-okuri-char-alist '())
+                   (set! skk-downcase-alist '())
+                   (set! skk-set-henkan-point-key '())
+@@ -2327,7 +2327,7 @@
+ (register-im
+  'skk
+  "ja"
+- "EUC-JP"
++ "UTF-8"
+  skk-im-name-label
+  skk-im-short-desc
+  #f
