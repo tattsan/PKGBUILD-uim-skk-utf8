@@ -1,2 +1,18 @@
 # PKGBUILD-uim-skk-utf8
-A patch for uim-skk to handle utf-8. This patch does not extend uim-skk but rewrites it, so you cannot use euc-jp in skk.
+
+`uim-skk`をutf-8化するためのパッチ集、および PKGBUILD です。本来ならutf-8対応を「追加」する形のパッチにして [uim/uim](https://github.com/uim/uim) にプルリクエストをお送りすべきなのですが、本パッチは上書きして`uim-skk`でeuc-jpを使えなくしてしまうため、このような形になりました。
+
+### `*.scm`
+
+`*.scm`の修正については次の方々の記事を利用させて頂きました。ありがとうございました。
+
+* [「𠁣」の文字をどのようにキーボード入力するか](https://harakire.tripod.com/junkies/non-bmp-keyb.html)
+
+* [パッチを当ててuim-skkをUTF-8化する](https://keens.github.io/blog/2019/10/20/patchiwoateteuim_skkwoutf_8kasuru/)
+
+### `skk.c`
+
+`skk.c`における「数値変換」のコードは漢数字などが2バイト文字であることが前提になっているため、これを3バイトに書き換えました。なお漢数字の単位は「京」までですが、「垓、𥝱、穣、溝、澗、…」と続くうちの「𥝱」は utf-8 では4バイト[^1]であるため、ここまで拡張するには`skk.c`を書き換える必要があります。
+
+
+[^1]: これについては拙作LaTeXパッケージ`Xkansuji`の[解説](https://github.com/tattsan/xkansuji/blob/master/jousu.pdf)の1ページ目を参照。
