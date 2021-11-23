@@ -19,4 +19,4 @@
 個人の設定ファイルや辞書ファイルの変更についての解説を書く。
 
 
-[^1]: これについては拙作LaTeXパッケージ`Xkansuji`の[解説](https://github.com/tattsan/xkansuji/blob/master/jousu.pdf)の1ページ目を参照。
+[^1]: これについては拙作LaTeXパッケージ[`Xkansuji`](https://github.com/tattsan/xkansuji)の[解説](https://github.com/tattsan/xkansuji/blob/master/jousu.pdf)の1ページ目を参照。
