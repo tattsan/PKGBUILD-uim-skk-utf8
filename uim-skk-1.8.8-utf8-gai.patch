@@ -1,0 +1,35 @@
+--- a/uim/skk.c	2021-11-22 08:59:00.934379955 +0900
++++ b/uim/skk.c	2021-11-22 09:11:48.883369335 +0900
+@@ -1277,12 +1277,12 @@
+   {"〇", "一", "二", "三", "四", "五", "六", "七", "八", "九"};
+ static char *kanji_num_position_list[] =
+   {NULL, "十", "百", "千", "万", NULL, NULL, NULL, "億", NULL,
+-   NULL, NULL, "兆", NULL, NULL, NULL, "京", NULL, NULL, NULL};
++   NULL, NULL, "兆", NULL, NULL, NULL, "京", NULL, NULL, NULL, "垓", NULL, NULL, NULL};
+ static char *kanji_check_num_list[] =
+   {"〇", "壱", "弍", "参", "四", "伍", "六", "七", "八", "九"};
+ static char *kanji_check_num_position_list[] =
+   {NULL, "拾", "百", "阡", "萬", NULL, NULL, NULL, "億", NULL,
+-   NULL, NULL, "兆", NULL, NULL, NULL, "京", NULL, NULL, NULL};
++   NULL, NULL, "兆", NULL, NULL, NULL, "京", NULL, NULL, NULL, "垓", NULL, NULL, NULL};
+ 
+ static char *
+ numeric_wide_or_kanji_conv(const char *numstr, int method)
+@@ -1313,7 +1313,7 @@
+   int head_is_zero = 0;
+ 
+   len = strlen(numstr);
+-  if (len > 20) /* too big number */
++  if (len > 24) /* too big number */
+     return uim_strdup(numstr);
+ 
+   mbstr = uim_malloc(len * 3 + 1);
+@@ -1417,7 +1417,7 @@
+   int head_is_zero = 0;
+ 
+   len = strlen(numstr);
+-  if (len > 20) /* too big number */
++  if (len > 24) /* too big number */
+     return uim_strdup(numstr);
+ 
+   mbstr = uim_malloc(len * 3 + 1);
