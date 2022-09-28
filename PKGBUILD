@@ -1,15 +1,15 @@
 #############################
 _pkgname=uim
 pkgname=uim-skk-utf8
-pkgver=1.8.8
-pkgrel=4
+pkgver=1.8.9
+pkgrel=1
 #############################
 pkgdesc='Multilingual input method library'
 url='https://github.com/uim/uim'
 license=('custom:BSD')
 arch=('x86_64')
 depends=('libxft' 'libedit' 'm17n-lib')
-makedepends=('intltool' 'gettext' 'gtk2' 'gtk3' 'qt5-x11extras' 'anthy')
+makedepends=('intltool' 'gettext' 'gtk2' 'gtk3' 'qt5-x11extras' 'anthy' 'plasma-framework')
 optdepends=('qt5-x11extras: immodule and helper applications'
             'gtk2: immodule and helper applications'
             'gtk3: immodule and helper applications'
@@ -20,11 +20,9 @@ source=("https://github.com/${_pkgname}/${_pkgname}/releases/download/${pkgver}/
 	"uim-skk-1.8.8-utf8-1.patch"
 	"uim-skk-1.8.8-utf8-2.patch"
 	"uim-skk-1.8.8-utf8-3.patch"
-        "StopSupportForRegeneratingJsonParserExpandedScm.patch"
 	"uim-skk-1.8.8-utf8-gai.patch"
 	)
-sha256sums=('34599bbcc4e5ab87832370763e38be5100984a64237555e9234a1ea225a0fadc'
-	'SKIP'
+sha256sums=('dbbd983768bf748449551644f330dbebe859bfeb6f024fea6697ac75131c7aa4'
 	'SKIP'
 	'SKIP'
 	'SKIP'
@@ -55,7 +53,6 @@ prepare() {
         cat "${srcdir}"/uim-skk-1.8.8-utf8-3.patch |  patch -p0 -b --follow-symlink
 	cd "${srcdir}/${_pkgname}-${pkgver}"
         cat "${srcdir}"/uim-skk-1.8.8-utf8-gai.patch |  patch -p1 -b --follow-symlink
-        cat "${srcdir}"/StopSupportForRegeneratingJsonParserExpandedScm.patch |  patch -p1 -b --follow-symlink
 }
 
 build() {
