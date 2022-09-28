@@ -19,6 +19,7 @@
 ### TODO
 
 * 他のディストリビューションに移植するために必要な解説を書く。
+* コード変換などの処理をPKGBUILDから外部スクリプトに移動して、他のディストリビューションに移植しやすくする。
 * 個人の設定ファイルや辞書ファイルの変更についての解説を書く。
 
 [^1]: これについては拙作LaTeXパッケージ[`Xkansuji`](https://github.com/tattsan/xkansuji)の[解説](https://github.com/tattsan/xkansuji/blob/master/jousu.pdf)の1ページ目を参照。
