@@ -59,6 +59,7 @@ build() {
 	cd "${srcdir}/${_pkgname}-${pkgver}"
 
 	CFLAGS+=' -fcommon' # https://wiki.gentoo.org/wiki/Gcc_10_porting_notes/fno_common
+	CFLAGS+=' -Wno-implicit-function-declaration'
 
 	./configure \
 		--prefix=/usr \
