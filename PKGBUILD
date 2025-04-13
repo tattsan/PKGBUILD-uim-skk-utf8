@@ -1,7 +1,7 @@
 #############################
 _pkgname=uim
 pkgname=uim-skk-utf8
-pkgver=1.9.0
+pkgver=1.9.1
 #############################
 pkgrel=1
 #############################
@@ -20,10 +20,12 @@ optdepends=('qt5-x11extras: immodule and helper applications'
 source=("https://github.com/${_pkgname}/${_pkgname}/releases/download/${pkgver}/${_pkgname}-${pkgver}.tar.bz2"
 	"uim-skk-utf8.patch"
 	"uim-skk-utf8-gai.patch"
+	"CMakeLists.txt_qt5_applet.patch"
 	)
-sha256sums=('271f0ed5f455e5bffa859f01b2d0f7fb966554ebd4822657afb67a0431dd85a8'
+sha256sums=('5050a9fbb09941258e3e4c3201b817966190b678d6675f0c4ec291f07dd666df'
 	'454017d090a50b3b8f26e58ea57edcab321e757a3eb369720dc04d4bb0edeeef'
 	'ab8fdf9e17c30f3267253b1e36b0d758f902495aab51df2ec152acec9cad936f'
+	'SKIP'
 	)
 
 provides=('uim')
@@ -33,6 +35,7 @@ prepare() {
 	cd "${srcdir}/${_pkgname}-${pkgver}"
 	patch -p1 -l < "${srcdir}"/uim-skk-utf8.patch
 	patch -p1 -l < "${srcdir}"/uim-skk-utf8-gai.patch
+	patch -p1 -l < "${srcdir}"/CMakeLists.txt_qt5_applet.patch
 	./autogen.sh
 }
 
