@@ -3,7 +3,7 @@ _pkgname=uim
 pkgname=uim-skk-utf8
 pkgver=1.9.1
 #############################
-pkgrel=1
+pkgrel=2
 #############################
 pkgdesc='Multilingual input method library'
 url='https://github.com/uim/uim'
@@ -21,11 +21,13 @@ source=("https://github.com/${_pkgname}/${_pkgname}/releases/download/${pkgver}/
 	"uim-skk-utf8.patch"
 	"uim-skk-utf8-gai.patch"
 	"CMakeLists.txt_qt5_applet.patch"
+	"ReplaceMetadataDesktopToJson.patch"
 	)
 sha256sums=('5050a9fbb09941258e3e4c3201b817966190b678d6675f0c4ec291f07dd666df'
 	'454017d090a50b3b8f26e58ea57edcab321e757a3eb369720dc04d4bb0edeeef'
 	'ab8fdf9e17c30f3267253b1e36b0d758f902495aab51df2ec152acec9cad936f'
-	'SKIP'
+	'7d8190fb5c912942286ac920d1210e3ac9ea190c9cffb215139bc424d6fac817'
+	'1f104cf7e6ce42e2d2297496d7f955f15f6daa36209928d9fa469bf90315ccb5'
 	)
 
 provides=('uim')
@@ -36,6 +38,7 @@ prepare() {
 	patch -p1 -l < "${srcdir}"/uim-skk-utf8.patch
 	patch -p1 -l < "${srcdir}"/uim-skk-utf8-gai.patch
 	patch -p1 -l < "${srcdir}"/CMakeLists.txt_qt5_applet.patch
+	patch -p1 -l < "${srcdir}"/ReplaceMetadataDesktopToJson.patch
 	./autogen.sh
 }
 
