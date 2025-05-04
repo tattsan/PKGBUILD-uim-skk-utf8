@@ -40,6 +40,7 @@ build() {
 	cd "${srcdir}/${_pkgname}-${pkgver}"
 
 	# CFLAGS+=' -Wno-implicit-function-declaration'
+	CFLAGS+=' -Wno-incompatible-pointer-types'
 	CFLAGS+=' -std=gnu17'
 
 	./configure \
