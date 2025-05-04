@@ -3,7 +3,7 @@ _pkgname=uim
 pkgname=uim-skk-utf8
 pkgver=1.9.3
 #############################
-pkgrel=2
+pkgrel=3
 #############################
 pkgdesc='Multilingual input method library'
 url='https://github.com/uim/uim'
