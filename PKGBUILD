@@ -3,7 +3,7 @@ _pkgname=uim
 pkgname=uim-skk-utf8
 pkgver=1.9.3
 #############################
-pkgrel=1
+pkgrel=2
 #############################
 pkgdesc='Multilingual input method library'
 url='https://github.com/uim/uim'
@@ -39,8 +39,8 @@ prepare() {
 build() {
 	cd "${srcdir}/${_pkgname}-${pkgver}"
 
-	CFLAGS+=' -fcommon' # https://wiki.gentoo.org/wiki/Gcc_10_porting_notes/fno_common
-	CFLAGS+=' -Wno-implicit-function-declaration'
+	# CFLAGS+=' -Wno-implicit-function-declaration'
+	CFLAGS+=' -std=gnu17'
 
 	./configure \
 		--prefix=/usr \
