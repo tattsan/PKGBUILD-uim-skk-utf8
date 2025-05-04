@@ -21,7 +21,7 @@ source=("https://github.com/${_pkgname}/${_pkgname}/releases/download/${pkgver}/
 	"uim-skk-utf8.patch"
 	"uim-skk-utf8-gai.patch"
 	)
-sha256sums=('5050a9fbb09941258e3e4c3201b817966190b678d6675f0c4ec291f07dd666df'
+sha256sums=('aa2febae77f675272e3d1d26922ae08f37d97837b6992a429fc4ea78e981a8e0'
 	'454017d090a50b3b8f26e58ea57edcab321e757a3eb369720dc04d4bb0edeeef'
 	'ab8fdf9e17c30f3267253b1e36b0d758f902495aab51df2ec152acec9cad936f'
 	)
