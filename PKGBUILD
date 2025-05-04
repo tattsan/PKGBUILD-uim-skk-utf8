@@ -3,7 +3,7 @@ _pkgname=uim
 pkgname=uim-skk-utf8
 pkgver=1.9.3
 #############################
-pkgrel=3
+pkgrel=4
 #############################
 pkgdesc='Multilingual input method library'
 url='https://github.com/uim/uim'
@@ -41,7 +41,6 @@ build() {
 
 	# CFLAGS+=' -Wno-implicit-function-declaration'
 	CFLAGS+=' -Wno-incompatible-pointer-types'
-	CFLAGS+=' -std=gnu17'
 
 	./configure \
 		--prefix=/usr \
