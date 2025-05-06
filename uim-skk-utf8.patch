@@ -1,5 +1,25 @@
+diff --git a/po/POTFILES.in b/po/POTFILES.in
+index 2f353b01..2bd18aa5 100644
+--- a/po/POTFILES.in
++++ b/po/POTFILES.in
+@@ -69,6 +69,7 @@ scm/im-custom.scm
+ scm/ipa-x-sampa.scm
+ scm/iso-639-1.scm
+ scm/japanese-custom.scm
++scm/japanese-custom-utf8.scm
+ scm/latin.scm
+ scm/lolevel.scm
+ scm/look-custom.scm
+@@ -91,6 +92,7 @@ scm/sj3-key-custom.scm
+ scm/sj3.scm
+ scm/sj3v2-socket.scm
+ scm/skk-custom.scm
++scm/skk-custom-eucjp.scm
+ scm/skk-key-custom.scm
+ scm/tcode.scm
+ scm/trycode.scm
 diff --git a/scm/Makefile.am b/scm/Makefile.am
-index 9fba04c60..f5119a078 100644
+index 9fba04c6..f5119a07 100644
 --- a/scm/Makefile.am
 +++ b/scm/Makefile.am
 @@ -23,6 +23,8 @@ SCM_FILES = plugin.scm im.scm im-custom.scm lazy-load.scm init.scm \
@@ -21,7 +41,7 @@ index 9fba04c60..f5119a078 100644
   tutcode.scm tutcode-custom.scm tutcode-key-custom.scm tutcode-bushu.scm \
 diff --git a/scm/japanese-act-utf8.scm b/scm/japanese-act-utf8.scm
 new file mode 100644
-index 000000000..0eec13b08
+index 00000000..0eec13b0
 --- /dev/null
 +++ b/scm/japanese-act-utf8.scm
 @@ -0,0 +1,705 @@
@@ -732,7 +752,7 @@ index 000000000..0eec13b08
 +
 diff --git a/scm/japanese-azik-utf8.scm b/scm/japanese-azik-utf8.scm
 new file mode 100644
-index 000000000..dfa82bde2
+index 00000000..dfa82bde
 --- /dev/null
 +++ b/scm/japanese-azik-utf8.scm
 @@ -0,0 +1,534 @@
@@ -1272,7 +1292,7 @@ index 000000000..dfa82bde2
 +(define ja-azik-skk-set-henkan-point-key (map string->charcode '(";")))
 diff --git a/scm/japanese-custom-utf8.scm b/scm/japanese-custom-utf8.scm
 new file mode 100644
-index 000000000..1eb55ed79
+index 00000000..1eb55ed7
 --- /dev/null
 +++ b/scm/japanese-custom-utf8.scm
 @@ -0,0 +1,524 @@
@@ -1802,7 +1822,7 @@ index 000000000..1eb55ed79
 +                   (ja-rk-rule-keep-consonant-update)))
 diff --git a/scm/japanese-kana-utf8.scm b/scm/japanese-kana-utf8.scm
 new file mode 100644
-index 000000000..a92d50083
+index 00000000..a92d5008
 --- /dev/null
 +++ b/scm/japanese-kana-utf8.scm
 @@ -0,0 +1,935 @@
@@ -2743,7 +2763,7 @@ index 000000000..a92d50083
 +    ))
 diff --git a/scm/japanese-kzik-utf8.scm b/scm/japanese-kzik-utf8.scm
 new file mode 100644
-index 000000000..c288d17c0
+index 00000000..c288d17c
 --- /dev/null
 +++ b/scm/japanese-kzik-utf8.scm
 @@ -0,0 +1,618 @@
@@ -3367,7 +3387,7 @@ index 000000000..c288d17c0
 +(define ja-kzik-rule (append ja-kzik-rule-basic (ja-rk-kzik-apply-changeset ja-rk-rule-basic)))
 diff --git a/scm/japanese-utf8.scm b/scm/japanese-utf8.scm
 new file mode 100644
-index 000000000..37f28c6e6
+index 00000000..37f28c6e
 --- /dev/null
 +++ b/scm/japanese-utf8.scm
 @@ -0,0 +1,675 @@
@@ -4048,7 +4068,7 @@ index 000000000..37f28c6e6
 +(ja-rk-rule-update)
 diff --git a/scm/skk-custom-eucjp.scm b/scm/skk-custom-eucjp.scm
 new file mode 100644
-index 000000000..df0ba969a
+index 00000000..df0ba969
 --- /dev/null
 +++ b/scm/skk-custom-eucjp.scm
 @@ -0,0 +1,557 @@
@@ -4610,7 +4630,7 @@ index 000000000..df0ba969a
 +  (N_ "Commit newline as ASCII string instead of native key-event")
 +  (N_ "long description will be here."))
 diff --git a/scm/skk-custom.scm b/scm/skk-custom.scm
-index df0ba969a..d3e52cadc 100644
+index df0ba969..d3e52cad 100644
 --- a/scm/skk-custom.scm
 +++ b/scm/skk-custom.scm
 @@ -179,22 +179,22 @@
@@ -4672,7 +4692,7 @@ index df0ba969a..d3e52cadc 100644
      
 diff --git a/scm/skk-eucjp.scm b/scm/skk-eucjp.scm
 new file mode 100644
-index 000000000..5e56582f8
+index 00000000..5e56582f
 --- /dev/null
 +++ b/scm/skk-eucjp.scm
 @@ -0,0 +1,2348 @@
@@ -7025,7 +7045,7 @@ index 000000000..5e56582f8
 + #f
 + )
 diff --git a/scm/skk.scm b/scm/skk.scm
-index 5e56582f8..e5987b0c8 100644
+index 5e56582f..e5987b0c 100644
 --- a/scm/skk.scm
 +++ b/scm/skk.scm
 @@ -30,21 +30,21 @@
@@ -7253,7 +7273,7 @@ index 5e56582f8..e5987b0c8 100644
   skk-im-short-desc
   #f
 diff --git a/uim/skk.c b/uim/skk.c
-index 656332a40..1440c9ea3 100644
+index 656332a4..1440c9ea 100644
 --- a/uim/skk.c
 +++ b/uim/skk.c
 @@ -1272,17 +1272,17 @@ skk_store_replaced_numeric_str(uim_lisp head_)
@@ -7530,7 +7550,7 @@ index 656332a40..1440c9ea3 100644
    default:
 diff --git a/uim/skk.c.eucjp b/uim/skk.c.eucjp
 new file mode 100644
-index 000000000..656332a40
+index 00000000..656332a4
 --- /dev/null
 +++ b/uim/skk.c.eucjp
 @@ -0,0 +1,3880 @@

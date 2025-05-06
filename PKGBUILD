@@ -1,7 +1,7 @@
 #############################
 _pkgname=uim
 pkgname=uim-skk-utf8
-pkgver=1.9.4
+pkgver=1.9.5
 #############################
 pkgrel=1
 #############################
@@ -21,8 +21,8 @@ source=("https://github.com/${_pkgname}/${_pkgname}/releases/download/${pkgver}/
 	"uim-skk-utf8.patch"
 	"uim-skk-utf8-gai.patch"
 	)
-sha256sums=('66859203aa5e3906cfab02a57d9fdf5ac4245dac34c53fe024b19c94404a7c88'
-	'454017d090a50b3b8f26e58ea57edcab321e757a3eb369720dc04d4bb0edeeef'
+sha256sums=('3b0dc23370a8b444dc0ad7ea2658b6ea91017b3d2383fe2624ca2fd5142196e1'
+	'9a4c9671422eaec035327db29b4a1544dbe304f39a4fa70e026c1cef2272b9f2'
 	'ab8fdf9e17c30f3267253b1e36b0d758f902495aab51df2ec152acec9cad936f'
 	)
 
