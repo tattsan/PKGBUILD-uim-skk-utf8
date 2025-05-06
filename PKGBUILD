@@ -1,9 +1,9 @@
 #############################
 _pkgname=uim
 pkgname=uim-skk-utf8
-pkgver=1.9.3
+pkgver=1.9.4
 #############################
-pkgrel=4
+pkgrel=1
 #############################
 pkgdesc='Multilingual input method library'
 url='https://github.com/uim/uim'
@@ -21,7 +21,7 @@ source=("https://github.com/${_pkgname}/${_pkgname}/releases/download/${pkgver}/
 	"uim-skk-utf8.patch"
 	"uim-skk-utf8-gai.patch"
 	)
-sha256sums=('aa2febae77f675272e3d1d26922ae08f37d97837b6992a429fc4ea78e981a8e0'
+sha256sums=('66859203aa5e3906cfab02a57d9fdf5ac4245dac34c53fe024b19c94404a7c88'
 	'454017d090a50b3b8f26e58ea57edcab321e757a3eb369720dc04d4bb0edeeef'
 	'ab8fdf9e17c30f3267253b1e36b0d758f902495aab51df2ec152acec9cad936f'
 	)
@@ -40,7 +40,7 @@ build() {
 	cd "${srcdir}/${_pkgname}-${pkgver}"
 
 	# CFLAGS+=' -Wno-implicit-function-declaration'
-	CFLAGS+=' -Wno-incompatible-pointer-types'
+	# CFLAGS+=' -Wno-incompatible-pointer-types'
 
 	./configure \
 		--prefix=/usr \
