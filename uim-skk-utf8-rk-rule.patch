@@ -1,0 +1,23 @@
+--- a/scm/japanese-custom-utf8.scm	2026-02-27 00:15:59.905341717 +0900
++++ b/scm/japanese-custom-utf8.scm	2026-02-26 10:19:10.172031823 +0900
+@@ -489,7 +489,7 @@
+                (N_ "long description will be here."))
+ 
+ (define-custom 'ja-rk-rule-table-basic
+-               (ja-rk-rule-rule->table ja-rk-rule-basic-uim)
++               '()
+                '(ja-rk-rule composing-rule)
+                (list 'table
+                  (list 'input (N_ "Input") (N_ "Input"))
+@@ -505,7 +508,10 @@
+                  (lambda ()
+                    (and
+                      (eq? ja-rk-rule-type 'uim)
+-                       (set! ja-rk-rule-basic ja-rk-rule-basic-uim))
++                     (begin
++                       (set! ja-rk-rule-basic ja-rk-rule-basic-uim)
++                       (set! ja-rk-rule-table-basic
++                             (ja-rk-rule-rule->table ja-rk-rule-basic-uim))))
+                    (ja-rk-rule-update)))
+ 
+ (custom-add-hook 'ja-rk-rule-table-basic

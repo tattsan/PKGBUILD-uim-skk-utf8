@@ -3,7 +3,7 @@ _pkgname=uim
 pkgname=uim-skk-utf8
 pkgver=1.9.6
 #############################
-pkgrel=1
+pkgrel=2
 #############################
 pkgdesc='Multilingual input method library'
 url='https://github.com/uim/uim'
@@ -20,10 +20,12 @@ optdepends=('qt5-x11extras: immodule and helper applications'
 source=("https://github.com/${_pkgname}/${_pkgname}/releases/download/${pkgver}/${_pkgname}-${pkgver}.tar.bz2"
 	"uim-skk-utf8.patch"
 	"uim-skk-utf8-gai.patch"
+	"uim-skk-utf8-rk-rule.patch"
 	)
 sha256sums=('67f0e5fa4292a533edc6f98b842df60c531a89cf82d0336a4e1ab72202ab8c83'
 	'9a4c9671422eaec035327db29b4a1544dbe304f39a4fa70e026c1cef2272b9f2'
 	'ab8fdf9e17c30f3267253b1e36b0d758f902495aab51df2ec152acec9cad936f'
+	'6710b784a7837f37b4eaccbb652f96d5f944647a3ac4225bce8b7f1d44231a66'
 	)
 
 provides=('uim')
@@ -33,6 +35,7 @@ prepare() {
 	cd "${srcdir}/${_pkgname}-${pkgver}"
 	patch -p1 -l < "${srcdir}"/uim-skk-utf8.patch
 	patch -p1 -l < "${srcdir}"/uim-skk-utf8-gai.patch
+	patch -p1 -l < "${srcdir}"/uim-skk-utf8-rk-rule.patch
 	./autogen.sh
 }
 
