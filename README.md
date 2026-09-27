@@ -1,4 +1,8 @@
-# PKGBUILD-uim-skk-utf8
+# 本家のuim-skkがUTF-8化（2026年09月20日）されました。
+
+ 当パッチは「euc-jpをutf-8で上書きする」ものでしたが、upstream [uim/uim](https://github.com/uim/uim)  で「追加」の形で utf-8対応が実現しました。このため当パッチは役目を終えました。Archiveにするほどの価値も無いと思いますので、しばらくしましたらこのrepositoryは削除させて頂きます。なお「垓」対応パッチは取り込まれていませんので、もしもこれが必要な方が居らっしゃいましたらご利用ください。
+
+## PKGBUILD-uim-skk-utf8
 
 `uim-skk`をutf-8化するためのパッチ集、および PKGBUILD です。本来ならutf-8対応を「追加」する形のパッチにして [uim/uim](https://github.com/uim/uim) にプルリクエストをお送りすべきなのですが、本パッチは上書きして`uim-skk`でeuc-jpを使えなくしてしまうため、このような形になりました。
 
